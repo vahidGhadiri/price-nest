@@ -1,0 +1,50 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+      - dev
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - run: corepack enable
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn test:run
+      - run: yarn lint
+      - run: yarn type-check
+
+  deploy-dev:
+    needs: install
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+
+    steps:
+      - run: echo "Deploy DEV"
+
+  deploy-staging:
+    needs: install
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+
+    steps:
+      - run: echo "Deploy STAGING"
+
+  deploy-prod:
+    needs: install
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - run: echo "Deploy PRODUCTION"
