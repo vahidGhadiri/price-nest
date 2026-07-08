@@ -1,0 +1,40 @@
+# Node
+node_modules
+
+# Next
+.next
+out
+
+# Build
+dist
+build
+
+# Logs
+logs
+*.log
+
+# Environment
+.env
+.env.*
+
+!.env.example
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+
+# Turbo
+.turbo
+
+# pnpm
+.pnpm-store
+
+# .NET
+bin
+obj
+
+# Coverage
+coverage

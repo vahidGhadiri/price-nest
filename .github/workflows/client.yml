@@ -1,0 +1,69 @@
+name: Client CI/CD
+
+on:
+  push:
+    branches:
+      - dev
+      - staging
+      - main
+    paths:
+      - "apps/client/**"
+      - "packages/**"
+      - "package.json"
+      - "yarn.lock"
+      - "turbo.json"
+
+  pull_request:
+    paths:
+      - "apps/client/**"
+      - "packages/**"
+
+concurrency:
+  group: client-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify Client
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - run: corepack enable
+
+      - run: yarn install --frozen-lockfile
+
+      - name: Lint
+        run: yarn turbo run lint --filter=client
+
+      - name: Type Check
+        run: yarn turbo run type-check --filter=client
+
+      - name: Test
+        run: yarn turbo run test --filter=client
+
+      - name: Build
+        run: yarn turbo run build --filter=client
+
+  docker:
+    name: Build Docker Image
+
+    needs: verify
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - run: docker build \
+          -f docker/client.Dockerfile \
+          -t price-nest-client .
