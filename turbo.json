@@ -1,15 +1,127 @@
 {
   "$schema": "https://turbo.build/schema.json",
+
+  "globalDependencies": [
+    ".env",
+    ".env.*",
+    "package.json",
+    "yarn.lock",
+    "turbo.json",
+    "Directory.Build.props",
+    "Directory.Build.targets",
+    "Directory.Packages.props",
+    "NuGet.Config",
+    "global.json"
+  ],
+
+  "globalEnv": [
+    "NODE_ENV",
+    "ASPNETCORE_ENVIRONMENT",
+    "DOTNET_ENVIRONMENT"
+  ],
+
   "tasks": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env",
+        ".env.*"
+      ],
+      "outputs": [
+        ".next/**",
+
+        "bin/**",
+
+        "!bin/**/ref/**",
+        "!obj/**",
+
+        "coverage/**"
+      ],
+      "outputLogs": "new-only"
     },
+
     "dev": {
+      "cache": false,
+      "persistent": true,
+      "interruptible": true
+    },
+
+    "start": {
       "cache": false,
       "persistent": true
     },
-    "lint": {},
-    "test": {},
-    "typecheck": {}
+
+    "lint": {
+      "dependsOn": ["^lint"],
+      "inputs": [
+        "$TURBO_DEFAULT$"
+      ]
+    },
+
+    "format": {
+      "cache": false
+    },
+
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "inputs": [
+        "$TURBO_DEFAULT$"
+      ]
+    },
+
+    "test": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": [
+        "coverage/**",
+        "TestResults/**"
+      ]
+    },
+
+    "test:watch": {
+      "cache": false,
+      "persistent": true,
+      "interruptible": true
+    },
+
+    "e2e": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": false
+    },
+
+    "clean": {
+      "cache": false
+    },
+
+    "docker:build": {
+      "dependsOn": [
+        "build"
+      ]
+    },
+
+    "docker:push": {
+      "dependsOn": [
+        "docker:build"
+      ],
+      "cache": false
+    },
+
+    "publish": {
+      "dependsOn": [
+        "build"
+      ]
+    },
+
+    "db:migrate": {
+      "cache": false
+    },
+
+    "db:seed": {
+      "cache": false
+    }
   }
 }
