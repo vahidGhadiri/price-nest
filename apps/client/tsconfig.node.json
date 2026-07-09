@@ -1,11 +1,11 @@
 {
-  "extends": "./tsconfig.base.json",
+    "extends": "./tsconfig.base.json",
 
-  "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "types": ["node"]
-  },
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "types": ["node"]
+    },
 
-  "include": ["next.config.ts", "scripts/**/*.ts"]
+    "include": ["next.config.ts", "scripts/**/*.ts"]
 }
