@@ -29,7 +29,17 @@ const browserGlobals = {
 const commonJsGlobals = { __dirname: 'readonly', process: 'readonly', require: 'readonly', module: 'readonly' };
 const nodeScriptGlobals = { console: 'readonly', process: 'readonly' };
 
-const vitestGlobals = { beforeEach: 'readonly', afterEach: 'readonly', beforeAll: 'readonly', afterAll: 'readonly', describe: 'readonly', expect: 'readonly', test: 'readonly', it: 'readonly', vi: 'readonly' };
+const vitestGlobals = {
+    beforeEach: 'readonly',
+    afterEach: 'readonly',
+    beforeAll: 'readonly',
+    afterAll: 'readonly',
+    describe: 'readonly',
+    expect: 'readonly',
+    test: 'readonly',
+    it: 'readonly',
+    vi: 'readonly',
+};
 
 const projectAliasPattern = '^@(assets(?:/illustrations)?|shared|adapters|features|infrastructure|components|services|configs|domain|utils|hooks)(?:/.*)?$';
 const perfectionistRecommendedLineLengthRules = perfectionist.configs['recommended-line-length'].rules;
@@ -43,9 +53,6 @@ export default [
     {
         rules: {
             ...perfectionistRecommendedLineLengthRules,
-            'perfectionist/sort-modules': 'off',
-            'local/module-member-order': 'error',
-            'local/multiline-type-literals': 'error',
             'perfectionist/sort-imports': [
                 'error',
                 {
@@ -56,37 +63,39 @@ export default [
                         'unknown',
                     ],
                     customGroups: [
-                        { groupName: 'alias-type', selector: 'type', elementNamePattern: projectAliasPattern },
-                        { groupName: 'alias-value', elementNamePattern: projectAliasPattern },
+                        { elementNamePattern: projectAliasPattern, groupName: 'alias-type', selector: 'type' },
+                        { elementNamePattern: projectAliasPattern, groupName: 'alias-value' },
                     ],
                     fallbackSort: { type: 'alphabetical', order: 'asc' },
                     type: 'line-length',
                     newlinesBetween: 1,
-                    newlinesInside: 0,
                     order: 'desc',
                 },
             ],
             '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'separate-type-imports', prefer: 'type-imports' }],
             '@typescript-eslint/explicit-function-return-type': 'off',
             'no-empty': ['error', { allowEmptyCatch: true }],
+            'local/multiline-type-literals': 'error',
             'react-hooks/rules-of-hooks': 'error',
             'react-hooks/exhaustive-deps': 'warn',
+            'local/module-member-order': 'error',
+            'perfectionist/sort-modules': 'off',
             'react/react-in-jsx-scope': 'off',
             'react/prop-types': 'off',
         },
-        languageOptions: { parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 'latest', sourceType: 'module', project: false }, globals: browserGlobals },
         plugins: {
+            local: {
+                rules: {
+                    'multiline-type-literals': multilineTypeLiteralsRule,
+                    'module-member-order': moduleMemberOrderRule,
+                },
+            },
             'react-hooks': reactHooks,
             react: reactPlugin,
             perfectionist,
             prettier,
-            local: {
-                rules: {
-                    'module-member-order': moduleMemberOrderRule,
-                    'multiline-type-literals': multilineTypeLiteralsRule,
-                },
-            },
         },
+        languageOptions: { parserOptions: { ecmaFeatures: { jsx: true }, ecmaVersion: 'latest', sourceType: 'module', project: false }, globals: browserGlobals },
         settings: { react: { version: 'detect' } },
         files: ['**/*.{ts,tsx,js,jsx,mjs,cjs}'],
     },
