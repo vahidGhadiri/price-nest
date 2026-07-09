@@ -1,50 +1,61 @@
 {
-  "name": "client",
-  "version": "1.0.0",
-  "private": true,
-
-  "scripts": {
-    "prebuild": "yarn i18n",
-    "build": "next build",
-    "dev": "next dev",
-    "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "typecheck": "tsc --noEmit",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "imports:check": "node scripts/sort-imports.mjs --check .",
-    "imports:fix": "node scripts/sort-imports.mjs --write .",
-    "test": "vitest run",
-    "test:watch": "vitest --watch",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
-    "dep:check": "depcruise src --config .dependency-cruiser.js",
-    "clean": "rimraf .next coverage",
-    "i18n": "formatjs extract 'src/**/*.(j|t)s*' --out-file src/configs/i18n/fa.json --ignore 'src/**/*.d.ts' && formatjs compile src/configs/i18n/fa.json --ast --out-file src/configs/i18n/compiled/fa.json"
-  },
-
-  "dependencies": {
-    "next": "^16.x",
-    "react": "^19.x",
-    "react-dom": "^19.x"
-  },
-
-  "devDependencies": {
-    "@types/node": "^24.x",
-    "@types/react": "^19.x",
-    "@types/react-dom": "^19.x",
-    "@vitest/coverage-v8": "^4.x",
-    "@vitest/ui": "^4.x",
-    "dependency-cruiser": "^17.x",
-    "eslint": "^9.x",
-    "eslint-config-next": "^16.x",
-    "jsdom": "^27.x",
-    "prettier": "^3.x",
-    "tsx": "^4.x",
-    "typescript": "^5.x",
-    "vite": "^7.x",
-    "vitest": "^4.x",
-    "rimraf": "^6.x"
-  }
+    "name": "client",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "prebuild": "yarn i18n",
+        "build": "next build",
+        "dev": "next dev",
+        "start": "next start",
+        "typecheck": "tsc --noEmit",
+        "format": "prettier --write .",
+        "imports:check": "node scripts/sort-imports.mjs --check .",
+        "imports:fix": "node scripts/sort-imports.mjs --write .",
+        "test": "vitest run",
+        "test:watch": "vitest --watch",
+        "test:coverage": "vitest run --coverage",
+        "test:ui": "vitest --ui",
+        "dep:check": "depcruise src --config .dependency-cruiser.js",
+        "clean": "rimraf .next coverage",
+        "i18n": "formatjs extract 'src/**/*.(j|t)s*' --out-file src/configs/i18n/fa.json --ignore 'src/**/*.d.ts' && formatjs compile src/configs/i18n/fa.json --ast --out-file src/configs/i18n/compiled/fa.json",
+        "types:fix": "eslint src --fix",
+        "lint:fix": "node scripts/lint.mjs --fix",
+        "lint:check": "node scripts/lint.mjs --check",
+        "format:check": "prettier --check ."
+    },
+    "dependencies": {
+        "next": "^16.x",
+        "react": "^19.x",
+        "react-dom": "^19.x"
+    },
+    "devDependencies": {
+        "@types/node": "^24.x",
+        "@types/react": "^19.x",
+        "@types/react-dom": "^19.x",
+        "@vitest/coverage-v8": "^4.x",
+        "@vitest/eslint-plugin": "^1.x",
+        "@vitest/ui": "^4.x",
+        "dependency-cruiser": "^17.x",
+        "eslint": "^9.x",
+        "eslint-config-next": "^16.x",
+        "eslint-plugin-perfectionist": "^4.x",
+        "eslint-plugin-prettier": "^5.x",
+        "jsdom": "^27.x",
+        "prettier": "^3.x",
+        "tsx": "^4.x",
+        "typescript": "^5.x",
+        "typescript-eslint": "^8.x",
+        "vite": "^7.x",
+        "vitest": "^4.x",
+        "rimraf": "^6.x"
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": [
+            "node scripts/lint.mjs --fix",
+            "prettier --write"
+        ],
+        "*.{json,md,yml,yaml,css,scss,html}": [
+            "prettier --write"
+        ]
+    }
 }
