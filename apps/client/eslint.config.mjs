@@ -53,6 +53,7 @@ export default [
     {
         rules: {
             ...perfectionistRecommendedLineLengthRules,
+            'prettier/prettier': 'error',
             'perfectionist/sort-imports': [
                 'error',
                 {
