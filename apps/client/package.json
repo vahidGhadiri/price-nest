@@ -24,12 +24,15 @@
         "format:check": "prettier --check ."
     },
     "dependencies": {
+        "@tanstack/react-query": "^5.101.2",
         "next": "^16.0.1",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "uuid": "^14.0.1"
     },
     "devDependencies": {
+        "@tailwindcss/postcss": "^4.3.2",
+        "@tanstack/react-query-devtools": "^5.101.2",
         "@types/node": "^24.10.0",
         "@types/react": "^19.2.2",
         "@types/react-dom": "^19.2.2",
@@ -42,8 +45,10 @@
         "eslint-plugin-perfectionist": "^4.15.0",
         "eslint-plugin-prettier": "^5.5.4",
         "jsdom": "^27.0.0",
+        "postcss": "^8.5.16",
         "prettier": "^3.6.2",
         "rimraf": "^6.0.1",
+        "tailwindcss": "^4.3.2",
         "tsx": "^4.19.2",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.46.0",

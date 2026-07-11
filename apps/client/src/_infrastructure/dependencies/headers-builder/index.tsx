@@ -1,4 +1,4 @@
-import { Guard } from '@/_infrastructure/gaurds';
+import { Guard } from '@infrastructure/gaurds';
 
 export interface HeadersBuilderInterface {
     addIf(condition: boolean, key: string, value: undefined | string | null): this;
