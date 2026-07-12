@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - develop
-      - staging
+      - release/*
+      - stage
       - main
     paths:
       - "apps/client/**"
@@ -32,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{ github.ref_name == 'main' && 'PRODUCTION' || github.ref_name == 'staging' && 'STAGING' || 'DEV' }}
+      name: ${{ github.ref_name == 'main' && 'PRODUCTION' || github.ref_name == 'stage' && 'STAGe' || 'DEV' }}
 
     steps:
       - name: Checkout
@@ -67,12 +68,12 @@ jobs:
 
     needs: verify
 
-    if: github.ref_name == 'staging' || github.ref_name == 'main'
+    if: startsWith(github.ref_name, 'release/') || github.ref_name == 'stage' || github.ref_name == 'main'
 
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{ github.ref_name == 'main' && 'PRODUCTION' || 'STAGING' }}
+      name: ${{ github.ref_name == 'main' && 'PRODUCTION' || 'STAGE' }}
 
     permissions:
       contents: read
