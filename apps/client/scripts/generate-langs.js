@@ -3,7 +3,7 @@ import { join } from 'path';
 
 const ROOT_DIR = join(import.meta.dirname, '..');
 const LOCALES_DIR = join(ROOT_DIR, 'src', 'configs', 'i18n', 'locales');
-const LANGS = ['en', 'fa'];
+const LANGS = ['en', 'fa', 'ar'];
 
 rmSync(LOCALES_DIR, { recursive: true, force: true });
 mkdirSync(LOCALES_DIR, { recursive: true });
