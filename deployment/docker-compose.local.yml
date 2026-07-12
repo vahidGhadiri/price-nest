@@ -1,0 +1,39 @@
+services:
+
+  client:
+    container_name: price-nest-client
+    build:
+      context: .
+      dockerfile: docker/client.Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_BASE_URL: http://localhost:5000
+    depends_on:
+      - server
+
+
+  server:
+    container_name: price-nest-server
+    build:
+      context: .
+      dockerfile: docker/server.Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/pricenest
+    depends_on:
+      - postgres
+
+
+  crawler:
+    container_name: price-nest-crawler
+    build:
+      context: .
+      dockerfile: docker/crawler.Dockerfile
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/pricenest
+    depends_on:
+      - postgres

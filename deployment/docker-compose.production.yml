@@ -1,0 +1,16 @@
+services:
+
+  client:
+    image: ghcr.io/vahidghadiri/price-nest-client:main
+    ports:
+      - "3000:3000"
+
+
+  server:
+    image: ghcr.io/vahidghadiri/price-nest-server:main
+    ports:
+      - "5000:5000"
+
+
+  crawler:
+    image: ghcr.io/vahidghadiri/price-nest-crawler:main
