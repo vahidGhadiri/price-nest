@@ -45,7 +45,7 @@ const projectAliasPattern = '^@(assets(?:/illustrations)?|shared|adapters|featur
 const perfectionistRecommendedLineLengthRules = perfectionist.configs['recommended-line-length'].rules;
 
 export default [
-    { ignores: ['eslint.config.mjs', '.dependency-cruiser.js', 'node_modules/**', 'coverage/**', '.husky/**', 'build/**', 'report/*', 'dist/**', 'out/**'] },
+    { ignores: ['eslint.config.mjs', '.dependency-cruiser.js', 'node_modules/**', 'coverage/**', '.husky/**', 'build/**', 'report/*', 'dist/**', 'out/**', ".next"] },
 
     js.configs.recommended,
     ...tseslint.configs.recommended,
