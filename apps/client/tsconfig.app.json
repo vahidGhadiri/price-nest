@@ -4,11 +4,31 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "@infrastructure/*": ["src/ـinfrastructure/*"],
-            "@domain/*": ["src/ـdomain/*"],
-            "@config/*": ["src/config/*"],
-            "@utils/*": ["src/utils/*"]
+            "@assets/illustrations": ["./public/assets/illustrations"],
+            "@assets/illustrations/*": ["./public/assets/illustrations/*"],
+            "@shared": ["./src/_infrastructure/_domain/shared"],
+            "@shared/*": ["./src/_infrastructure/_domain/shared/*"],
+            "@adapters": ["./src/_presentation/adapters/index.ts"],
+            "@adapters/*": ["./src/_presentation/adapters/*"],
+            "@features": ["./src/_presentation/features"],
+            "@features/*": ["./src/_presentation/features/*"],
+            "@infrastructure": ["./src/_infrastructure/index.ts"],
+            "@infrastructure/*": ["./src/_infrastructure/*"],
+            "@components": ["./src/components/index.ts"],
+            "@contracts": ["./src/_contracts/index.ts"],
+            "@components/*": ["./src/components/*"],
+            "@services": ["./src/services"],
+            "@services/*": ["./src/services/*"],
+            "@configs": ["./src/configs"],
+            "@configs/*": ["./src/configs/*"],
+            "@domain": ["./src/_domain/index.ts"],
+            "@domain/*": ["./src/_domain/*"],
+            "@assets": ["./src/assets"],
+            "@assets/*": ["./src/assets/*"],
+            "@utils": ["./src/utils"],
+            "@utils/*": ["./src/utils/*"],
+            "@hooks": ["./src/hooks/index.ts"],
+            "@hooks/*": ["./src/hooks/*"]
         },
 
         "plugins": [{ "name": "next" }]
