@@ -1,50 +1,37 @@
 ############################################
-# Base
+# Dependencies
 ############################################
 
-FROM node:20-alpine AS base
-
-RUN apk add --no-cache libc6-compat
-
-RUN corepack enable
+FROM node:20-alpine AS deps
 
 WORKDIR /app
 
+RUN corepack enable
 
-############################################
-# Pruner
-############################################
-
-FROM base AS pruner
-
-COPY . .
-
-RUN yarn dlx turbo prune client --docker
-
-
-############################################
-# Installer
-############################################
-
-FROM base AS installer
-
-COPY --from=pruner /app/out/json/ .
+COPY package.json yarn.lock turbo.json ./
+COPY apps/client/package.json ./apps/client/package.json
 
 RUN yarn install --frozen-lockfile
-
 
 ############################################
 # Builder
 ############################################
 
-FROM base AS builder
+FROM node:20-alpine AS builder
 
-COPY --from=installer /app/node_modules ./node_modules
+RUN apk add --no-cache libc6-compat
 
-COPY --from=pruner /app/out/full/ .
+WORKDIR /app
+
+RUN corepack enable
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+ARG NEXT_PUBLIC_BASE_URL
+ENV NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL
 
 RUN yarn turbo run build --filter=client
-
 
 ############################################
 # Runner
@@ -55,21 +42,16 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV PORT=3000
 
-RUN addgroup --system nodejs
+RUN addgroup -S nodejs && \
+    adduser -S nextjs -G nodejs
 
-RUN adduser --system nextjs
+COPY --from=builder /app/apps/client/.next/standalone ./
+COPY --from=builder /app/apps/client/.next/static ./apps/client/.next/static
 
 USER nextjs
 
-COPY --from=builder /app/apps/client/.next/standalone ./
-
-COPY --from=builder /app/apps/client/.next/static ./apps/client/.next/static
-
-COPY --from=builder /app/apps/client/public ./apps/client/public
-
 EXPOSE 3000
-
-ENV PORT=3000
 
 CMD ["node", "apps/client/server.js"]

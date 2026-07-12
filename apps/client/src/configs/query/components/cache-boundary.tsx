@@ -10,7 +10,12 @@ interface CacheBoundaryProps {
 
 export default async function CacheBoundary({ children, state }: PropsWithChildren<CacheBoundaryProps>) {
     const client = getClient();
-    await state(client);
+
+    try {
+        await state(client);
+    } catch {
+        // Prefetch failed — children will fetch on the client side
+    }
 
     return <HydrationBoundary state={dehydrate(client)}>{children}</HydrationBoundary>;
 }

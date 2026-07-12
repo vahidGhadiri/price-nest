@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 import { routing } from '@configs/i18n/helpers/routing';
+import { LanguageSwitcher } from '@components';
 import { CacheProvider } from '@configs';
 
 interface RootLayoutProps {
@@ -37,10 +38,15 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     const messages = await getMessages();
 
     return (
-        <html dir={locale === 'fa' ? 'rtl' : 'ltr'} lang={locale}>
+        <html dir={['fa', 'ar'].includes(locale) ? 'rtl' : 'ltr'} lang={locale}>
             <body>
                 <NextIntlClientProvider messages={messages}>
-                    <CacheProvider>{children}</CacheProvider>
+                    <CacheProvider>
+                        <div className="fixed top-4 right-4 z-50">
+                            <LanguageSwitcher />
+                        </div>
+                        {children}
+                    </CacheProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

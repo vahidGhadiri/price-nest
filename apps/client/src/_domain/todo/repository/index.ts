@@ -1,4 +1,4 @@
-import type { IHttp } from '@contracts/http';
+import type { IHttp } from '@contracts';
 
 import type { CreateTodoDto, Todo } from '../data-transfer-object';
 import type { DomainServices } from '../domain-services';

@@ -1,47 +1,25 @@
-import { FormattedMessage as IntlFormattedMessage } from 'react-intl';
+'use client';
+
 import type { ReactNode, JSX, FC } from 'react';
 
-type Primitive = ReactNode | string | number;
+import type { MessageDefinition } from '@configs/i18n';
+import { useFormatMessage } from '@hooks';
 
 export interface FormattedMessageProps {
-    children?: (nodes: ReactNode[]) => ReactNode;
+    children?: (text: string) => ReactNode;
     tag?: keyof JSX.IntrinsicElements;
-    values?: FormattedMessageValues;
     dir?: 'auto' | 'rtl' | 'ltr';
-    defaultMessage: string;
-    className?: string;
-    id: string;
-}
-
-export interface FormattedMessageValues extends Record<string, Primitive> {
+    message: MessageDefinition;
     className?: string;
 }
 
-const wrapValuesWithClassName = (values?: FormattedMessageValues, dir?: FormattedMessageProps['dir']): Record<string, Primitive> | undefined => {
-    if (!values) return values;
-
-    const { className, ...rest } = values;
-
-    if (!className && !dir) return rest;
-
-    return Object.fromEntries(
-        Object.entries(rest).map(([key, value]) => [
-            key,
-            <bdi dir={dir ? 'auto' : undefined} className={className} key={key}>
-                {value}
-            </bdi>,
-        ])
-    );
-};
-
-export const FormattedMessage: FC<FormattedMessageProps> = ({ tag: Tag = 'p', defaultMessage, className, children, values, dir, id }) => {
-    const processedValues = wrapValuesWithClassName(values, dir);
+export const FormattedMessage: FC<FormattedMessageProps> = ({ tag: Tag = 'p', className, children, message, dir }) => {
+    const { formatMessage } = useFormatMessage();
+    const rendered = formatMessage(message);
 
     return (
         <Tag className={className} dir={dir}>
-            <IntlFormattedMessage defaultMessage={defaultMessage} values={processedValues} id={id}>
-                {children ? children : (nodes: ReactNode[]) => nodes}
-            </IntlFormattedMessage>
+            {children ? children(rendered) : rendered}
         </Tag>
     );
 };

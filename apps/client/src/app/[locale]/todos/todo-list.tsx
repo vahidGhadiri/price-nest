@@ -3,11 +3,16 @@
 import { Suspense, useState } from 'react';
 
 import { useGetTodosSuspense, useCreateTodo } from '@adapters/todos';
+import { FormattedMessage } from '@components';
+import { useFormatMessage } from '@hooks';
+
+import strings from './strings';
 
 function TodoListContent() {
     const { data: todos } = useGetTodosSuspense();
-    const createTodo = useCreateTodo();
+    const { formatMessage } = useFormatMessage();
     const [title, setTitle] = useState('');
+    const createTodo = useCreateTodo();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,15 +27,15 @@ function TodoListContent() {
     return (
         <main className="mx-auto flex min-h-dvh max-w-lg flex-col gap-8 p-8 pt-16">
             <div className="flex flex-col gap-2">
-                <h1 className="text-3xl font-bold tracking-tight text-foreground">Todos</h1>
-                <p className="text-sm text-muted-foreground">Manage your tasks</p>
+                <FormattedMessage className="text-3xl font-bold tracking-tight text-foreground" message={strings.title} tag="h1" />
+                <FormattedMessage className="text-sm text-muted-foreground" message={strings.description} tag="p" />
             </div>
 
             <form onSubmit={handleSubmit} className="flex gap-2">
                 <input
                     className="flex-1 rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                    placeholder={formatMessage(strings.placeholder)}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="What needs to be done?"
                     value={title}
                     type="text"
                 />
@@ -38,7 +43,7 @@ function TodoListContent() {
                     className="rounded-lg bg-primary px-10 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={createTodo.isPending}
                     type="submit">
-                    {createTodo.isPending ? 'Adding...' : 'Add'}
+                    {createTodo.isPending ? formatMessage(strings.adding) : formatMessage(strings.add)}
                 </button>
             </form>
 
@@ -60,31 +65,34 @@ function TodoListContent() {
                 ))}
             </ul>
 
-            {todos.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No todos yet. Add one above.</p>}
+            {todos.length === 0 && <FormattedMessage className="py-12 text-center text-sm text-muted-foreground" message={strings.empty} tag="p" />}
+        </main>
+    );
+}
+
+function TodoListFallback() {
+    return (
+        <main className="mx-auto flex min-h-dvh max-w-lg flex-col gap-8 p-8 pt-16">
+            <div className="flex flex-col gap-2">
+                <FormattedMessage className="text-3xl font-bold tracking-tight text-foreground" message={strings.title} tag="h1" />
+                <FormattedMessage className="text-sm text-muted-foreground" message={strings.description} tag="p" />
+            </div>
+            <div className="flex gap-2">
+                <div className="h-10 flex-1 animate-pulse rounded-lg bg-muted" />
+                <div className="h-10 w-20 animate-pulse rounded-lg bg-muted" />
+            </div>
+            <div className="flex flex-col gap-1">
+                {[1, 2, 3].map((i) => (
+                    <div className="h-12 animate-pulse rounded-lg bg-muted" key={i} />
+                ))}
+            </div>
         </main>
     );
 }
 
 export default function TodoList() {
     return (
-        <Suspense
-            fallback={
-                <main className="mx-auto flex min-h-dvh max-w-lg flex-col gap-8 p-8 pt-16">
-                    <div className="flex flex-col gap-2">
-                        <h1 className="text-3xl font-bold tracking-tight text-foreground">Todos</h1>
-                        <p className="text-sm text-muted-foreground">Manage your tasks</p>
-                    </div>
-                    <div className="flex gap-2">
-                        <div className="h-10 flex-1 animate-pulse rounded-lg bg-muted" />
-                        <div className="h-10 w-20 animate-pulse rounded-lg bg-muted" />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        {[1, 2, 3].map((i) => (
-                            <div className="h-12 animate-pulse rounded-lg bg-muted" key={i} />
-                        ))}
-                    </div>
-                </main>
-            }>
+        <Suspense fallback={<TodoListFallback />}>
             <TodoListContent />
         </Suspense>
     );

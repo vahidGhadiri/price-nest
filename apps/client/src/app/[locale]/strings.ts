@@ -1,27 +1,21 @@
 import { defineMessages } from '@configs/i18n';
 
 export default defineMessages({
-    subtitle: {
-        defaultMessage: {
-            fa: 'فراموش نکنی که ثبت نام کنی',
-            en: 'Do not forget to submit',
-        },
-        id: 'promotions/subtitle',
-    },
-
     homeSubtitle: {
         defaultMessage: {
             fa: 'فراموش نکنی که ثبت نام کنی',
             en: 'Do not forget to submit',
+            ar: 'لا تنسَ التسجيل',
         },
         id: 'home/subtitle',
     },
 
-    title: {
+    viewTodos: {
         defaultMessage: {
-            en: 'Big Discounts!',
-            fa: 'حراج بزرگ',
+            fa: 'مشاهده تسک‌ها',
+            ar: 'عرض المهام',
+            en: 'View Todos',
         },
-        id: 'promotions/title',
+        id: 'home/viewTodos',
     },
 });
