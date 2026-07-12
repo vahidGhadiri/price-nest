@@ -36,5 +36,8 @@ logs
 bin
 obj
 
+# i18n generated
+apps/client/src/configs/i18n/locales/*.json
+
 # Coverage
 coverage
