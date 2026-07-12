@@ -1,4 +1,4 @@
-import { Guard } from '@/_infrastructure/gaurds';
+import { Guard } from '@infrastructure/gaurds';
 
 export type BuiltResponse<T> = Result<T>;
 
