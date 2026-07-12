@@ -19,7 +19,7 @@
         "dep:check": "depcruise src --config .dependency-cruiser.js",
         "clean": "rimraf .next coverage",
         "i18n:extract": "formatjs extract 'src/**/*.{ts,tsx}' --out-file src/configs/i18n/locales/fa.json --ignore '**/*.d.ts' --id-interpolation-pattern '[sha512:contenthash:base64:10]' --flatten && formatjs compile src/configs/i18n/locales/fa.json --ast --out-file src/configs/i18n/compiled/fa.json",
-        "i18n:generate": "bash scripts/generate-langs.sh",
+        "i18n:generate": "node --import tsx scripts/generate-langs.js",
         "i18n": "yarn i18n:generate",
         "types:fix": "eslint src --fix",
         "lint:fix": "node scripts/lint.mjs --fix",
