@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
     reactStrictMode: true,
+    output: 'standalone',
 };
 
 const withNextIntl = createNextIntlPlugin('./src/configs/i18n/helpers/request.ts');
