@@ -2,7 +2,7 @@
 # Dependencies
 ############################################
 
-FROM node:20-alpine AS deps
+FROM node:24-alpine AS deps
 
 WORKDIR /app
 
@@ -17,9 +17,7 @@ RUN yarn install --frozen-lockfile
 # Builder
 ############################################
 
-FROM node:20-alpine AS builder
-
-RUN apk add --no-cache libc6-compat
+FROM node:24-alpine AS builder
 
 WORKDIR /app
 
@@ -37,7 +35,7 @@ RUN yarn turbo run build --filter=client
 # Runner
 ############################################
 
-FROM node:20-alpine AS runner
+FROM node:24-alpine AS runner
 
 WORKDIR /app
 
