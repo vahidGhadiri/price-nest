@@ -1,0 +1,43 @@
+# Node
+node_modules
+
+# Next
+.next
+out
+
+# Build
+dist
+build
+
+# Logs
+logs
+*.log
+
+# Environment
+.env
+.env.*
+
+!.env.example
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+
+# Turbo
+.turbo
+
+# pnpm
+.pnpm-store
+
+# .NET
+bin
+obj
+
+# i18n generated
+apps/client/src/configs/i18n/locales/*.json
+
+# Coverage
+coverage

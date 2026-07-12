@@ -1,0 +1,95 @@
+/* ── Gray Palette (Neutral Modern) ── */
+
+@theme {
+    --color-gray-50: #fafafa;
+    --color-gray-100: #f4f4f5;
+    --color-gray-200: #e4e4e7;
+    --color-gray-300: #d4d4d8;
+    --color-gray-400: #a1a1aa;
+    --color-gray-500: #71717a;
+    --color-gray-600: #52525b;
+    --color-gray-700: #3f3f46;
+    --color-gray-800: #27272a;
+    --color-gray-900: #18181b;
+    --color-gray-950: #09090b;
+
+    /* ── Semantic Colors (Light) ── */
+
+    --color-background: #ffffff;
+    --color-foreground: #09090b;
+
+    --color-card: #ffffff;
+    --color-card-foreground: #09090b;
+
+    --color-popover: #ffffff;
+    --color-popover-foreground: #09090b;
+
+    --color-primary: #18181b;
+    --color-primary-foreground: #fafafa;
+
+    --color-secondary: #f4f4f5;
+    --color-secondary-foreground: #18181b;
+
+    --color-muted: #f4f4f5;
+    --color-muted-foreground: #71717a;
+
+    --color-accent: #f4f4f5;
+    --color-accent-foreground: #18181b;
+
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #fafafa;
+
+    --color-border: #e4e4e7;
+    --color-input: #e4e4e7;
+    --color-ring: #18181b;
+
+    --color-success: #22c55e;
+    --color-success-foreground: #fafafa;
+
+    --color-warning: #f59e0b;
+    --color-warning-foreground: #fafafa;
+
+    --color-info: #3b82f6;
+    --color-info-foreground: #fafafa;
+}
+
+/* ── Semantic Colors (Dark) ── */
+
+.dark {
+    --color-background: #09090b;
+    --color-foreground: #fafafa;
+
+    --color-card: #09090b;
+    --color-card-foreground: #fafafa;
+
+    --color-popover: #09090b;
+    --color-popover-foreground: #fafafa;
+
+    --color-primary: #fafafa;
+    --color-primary-foreground: #18181b;
+
+    --color-secondary: #27272a;
+    --color-secondary-foreground: #fafafa;
+
+    --color-muted: #27272a;
+    --color-muted-foreground: #a1a1aa;
+
+    --color-accent: #27272a;
+    --color-accent-foreground: #fafafa;
+
+    --color-destructive: #dc2626;
+    --color-destructive-foreground: #fafafa;
+
+    --color-border: #27272a;
+    --color-input: #27272a;
+    --color-ring: #d4d4d8;
+
+    --color-success: #16a34a;
+    --color-success-foreground: #fafafa;
+
+    --color-warning: #d97706;
+    --color-warning-foreground: #fafafa;
+
+    --color-info: #2563eb;
+    --color-info-foreground: #fafafa;
+}

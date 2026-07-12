@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+PATTERN="^(feature|fix|hotfix|release|refactor|chore)\/[a-z]+-[0-9]+--[a-z0-9-]+$"
+
+if ! [[ "$BRANCH_NAME" =~ $PATTERN ]]; then
+  echo "Invalid branch name: $BRANCH_NAME"
+  exit 1
+fi
+
+echo "Running build..."
+yarn build
+
+echo "Running unit tests..."
+yarn run test:run
+
+echo "Running dependency-cruiser to check fitness functions..."
+yarn dep:check
+
+echo "All checks passed. Push allowed."

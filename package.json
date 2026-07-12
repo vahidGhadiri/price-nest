@@ -1,0 +1,50 @@
+{
+  "name": "price-nest",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "start": "turbo run start",
+
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+
+    "format": "turbo run format",
+    "format:check": "turbo run format:check",
+
+    "typecheck": "turbo run typecheck",
+
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "test:coverage": "turbo run test:coverage",
+
+    "imports:check": "turbo run imports:check",
+    "imports:fix": "turbo run imports:fix",
+
+    "dep:check": "turbo run dep:check",
+
+    "clean": "turbo run clean",
+
+    "docker:build": "turbo run docker:build",
+    "docker:push": "turbo run docker:push",
+
+    "publish": "turbo run publish",
+
+    "db:generate": "turbo run db:generate",
+    "db:migrate": "turbo run db:migrate",
+    "db:seed": "turbo run db:seed",
+
+    "dev:client": "yarn workspace client dev",
+    "dev:server": "dotnet watch run --project apps/server/src/PriceNest.Server",
+    "dev:crawler": "dotnet watch run --project apps/crawler/src/PriceNest.Crawler"
+  },
+  "devDependencies": {
+    "turbo": "^2.10.4"
+  }
+}
