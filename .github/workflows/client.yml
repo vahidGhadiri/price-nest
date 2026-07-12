@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{ github.ref_name == 'main' && 'PRODUCTION' || github.ref_name == 'stage' && 'STAGe' || 'DEV' }}
+      name: ${{ github.ref_name == 'main' && 'PRODUCTION' || github.ref_name == 'stage' && 'STAGE' || 'DEV' }}
 
     steps:
       - name: Checkout
